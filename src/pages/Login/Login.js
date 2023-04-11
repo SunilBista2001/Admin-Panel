@@ -10,14 +10,19 @@ function Login() {
   const getYear = new Date().getFullYear();
 
   const { mutate } = useMutation(login, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       console.log("loggedIn sucessfully");
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user-info", data.userinfo.stringfy());
+      console.log(data.userinfo);
+      navigate("/");
     },
     onError: () => {},
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    mutate(data);
   };
 
   return (
@@ -26,7 +31,6 @@ function Login() {
         <a href="/" className="logo float-left">
           <img src="img/logo.png" height="70" alt="Khursani" />
         </a>
-
         <div className="panel card-sign">
           <div className="card-title-sign mt-3 text-end">
             <h2 className="title text-uppercase font-weight-bold m-0">

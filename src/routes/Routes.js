@@ -59,6 +59,10 @@ const router = createBrowserRouter([
         element: <RewardTransaction />,
       },
       {
+        path: "/login",
+        element: <Login />,
+      },
+      {
         path: "/settings",
         element: <Settings />,
       },
