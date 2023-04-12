@@ -14,7 +14,7 @@ function DeleteModal({ id, title, closeModal }) {
             </div>
             <div className="modal-text">
               <h4 className="font-weight-bold text-dark">Delete {title}</h4>
-              <p>Are you sure that you want to delete?</p>
+              <p>Are you sure that you want to delete ?</p>
             </div>
           </div>
         </div>

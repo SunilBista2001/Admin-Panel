@@ -5,17 +5,17 @@ import ProtectedRoutes from "./ProtectedRoutes";
 
 function AdminLayout() {
   return (
-    <ProtectedRoutes>
-      <section className="body">
-        <Header />
-        <div className="flex">
-          <Sidebar />
-          <div className="content-body mt-4 w-full ">
-            <Outlet />
-          </div>
+    // <ProtectedRoutes>
+    // </ProtectedRoutes>
+    <section className="body">
+      <Header />
+      <div className="flex">
+        <Sidebar />
+        <div className="content-body mt-4 w-full ">
+          <Outlet />
         </div>
-      </section>
-    </ProtectedRoutes>
+      </div>
+    </section>
   );
 }
 

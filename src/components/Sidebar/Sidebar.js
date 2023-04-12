@@ -42,8 +42,9 @@ function Sidebar() {
               <Link to="/">
                 <SidebarTitle Icon={DashboardIcon} title="Dashboard" />
               </Link>
-
-              <SidebarTitle Icon={GroupIcon} title="Users" />
+              <Link to="/user">
+                <SidebarTitle Icon={GroupIcon} title="Users" />
+              </Link>
               <Link to="/categories">
                 <SidebarTitle Icon={CategoryIcon} title="Categories" />
               </Link>

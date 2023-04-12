@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import AddPhoto from "../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { addCategory } from "../../api/services/Category";
 
 function AddCategoriesModal({ closeModal }) {
   const { register, handleSubmit } = useForm();
@@ -15,14 +17,21 @@ function AddCategoriesModal({ closeModal }) {
     console.log(selectedFile);
   };
 
+  const { mutate, isLoading } = useMutation(addCategory, {
+    onSuccess: () => {},
+    onError: () => {},
+  });
+
   const onSubmit = (data) => {
     const newData = {
       data,
       image: selectedFile,
     };
     console.log(newData); //Data with Image
+    mutate(newData);
     closeModal();
   };
+
   return (
     <>
       <Modal title="Add Categories">
@@ -80,8 +89,12 @@ function AddCategoriesModal({ closeModal }) {
           <footer className="card-footer mt-4">
             <div className="row">
               <div className="flex justify-end gap-3">
-                <button className="btn btn-primary modal-confirm" type="submit">
-                  Submit
+                <button
+                  className="btn btn-primary modal-confirm"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Submitting" : "Submit"}
                 </button>
                 <button
                   className="btn btn-default modal-dismiss"

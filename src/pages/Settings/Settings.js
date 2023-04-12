@@ -1,11 +1,20 @@
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
+import { getUserSettings } from "../../api/services/Settings";
+import Loader from "../../components/Loader/Loader";
 
 function Settings() {
+  // const { isLoading, data: user } = useQuery("user-setting", getUserSettings);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
+
   return (
     <div className="w-full h-full">
       <form

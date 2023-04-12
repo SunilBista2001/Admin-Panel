@@ -10,6 +10,7 @@ import Login from "../pages/Login/Login";
 import WalletTransaction from "../pages/WalletTransaction/WalletTransaction";
 import RewardTransaction from "../pages/RewardTransaction/RewardTransaction";
 import Wallet from "../pages/Wallet/Wallet";
+import Users from "../pages/Users/Users";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/user",
+        element: <Users />,
       },
       {
         path: "/categories",
@@ -54,20 +59,20 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "*",
-        element: <h1>Error Page</h1>,
-      },
-    ],
-  },
+  // {
+  //   path: "/",
+  //   element: <AuthLayout />,
+  //   children: [
+  //     {
+  //       path: "/login",
+  //       element: <Login />,
+  //     },
+  //     {
+  //       path: "*",
+  //       element: <h1>Error Page</h1>,
+  //     },
+  //   ],
+  // },
 ]);
 
 export default router;

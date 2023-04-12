@@ -6,7 +6,7 @@ import CategoriesTable from "./categoriesTable/CategoriesTable";
 function Categories() {
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   return (
-    <div className="w-full py-2">
+    <div className="container mx-auto my-4">
       {showAddCategoryModal && (
         <AddCategoriesModal closeModal={() => setShowAddCategoryModal(false)} />
       )}
