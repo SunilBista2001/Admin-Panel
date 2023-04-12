@@ -29,12 +29,12 @@ function Login() {
     <section className="body-sign">
       <div className="center-sign">
         <a href="/" className="logo float-left">
-          <img
+          {/* <img
             src={Logo}
             className="h-48 w-h-48  absolute top-32 left-[480px]"
             height="70"
             alt="Khursani"
-          />
+          /> */}
         </a>
         <div className="panel card-sign">
           <div className="card-title-sign mt-3 text-end">
