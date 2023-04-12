@@ -11,10 +11,9 @@ function Login() {
 
   const { mutate } = useMutation(login, {
     onSuccess: (data) => {
-      console.log("loggedIn sucessfully");
-      console.log(data);
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user-info", data.userinfo.stringfy());
+      localStorage.setItem("user-Info", JSON.stringify(data.userinfo));
+
       console.log(data.userinfo);
       navigate("/");
     },

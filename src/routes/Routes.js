@@ -12,20 +12,6 @@ import RewardTransaction from "../pages/RewardTransaction/RewardTransaction";
 import Wallet from "../pages/Wallet/Wallet";
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <AuthLayout />,
-  //   children: [
-  //     {
-  //       path: "/login",
-  //       element: <Login />,
-  //     },
-  //     {
-  //       path: "*",
-  //       element: <h1>Error Page</h1>,
-  //     },
-  //   ],
-  // },
   {
     path: "/",
     element: <AdminLayout />,
@@ -59,12 +45,22 @@ const router = createBrowserRouter([
         element: <RewardTransaction />,
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
         path: "/settings",
         element: <Settings />,
+      },
+      {
+        path: "*",
+        element: <h1>Error Page</h1>,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "*",
