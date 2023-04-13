@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import AddPagesModal from "./AddPagesModal";
+import PageTableList from "./PageTableList/PageTableList";
 
 function Pages() {
   const [showAddPagesModal, setShowAddPagesModal] = useState(false);
@@ -14,6 +15,9 @@ function Pages() {
         <button onClick={() => setShowAddPagesModal(true)}>
           <Button title="Add Pages" />
         </button>
+      </div>
+      <div className="my-4">
+        <PageTableList />
       </div>
     </div>
   );

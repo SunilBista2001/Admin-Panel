@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import EditUserModal from "./EditUserModal/EditUserModal";
 
 let dummyData = [
   {
@@ -12,8 +13,9 @@ let dummyData = [
 ];
 
 function UserTable() {
-  const [userData, setUserData] = useState(dummyData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
+
   const [userId, setUserId] = useState(null);
 
   return (
@@ -24,6 +26,9 @@ function UserTable() {
           id={userId}
           closeModal={() => setShowDeleteModal(false)}
         />
+      )}
+      {showEditUserModal && (
+        <EditUserModal closeModal={() => setShowEditUserModal(false)} />
       )}
       <table className="table table-responsive-md table-hover mb-0 ">
         <thead>
@@ -37,7 +42,7 @@ function UserTable() {
           </tr>
         </thead>
         <tbody>
-          {userData.map((user, index) => (
+          {dummyData.map((user, index) => (
             <tr key={index}>
               <td>{user.id + 1}</td>
               <td>{user.username}</td>
@@ -51,7 +56,7 @@ function UserTable() {
               <td>{user.phone}</td>
               <td>{user.role}</td>
               <td className="actions-hover actions-fade">
-                <button>
+                <button onClick={() => setShowEditUserModal(true)}>
                   <i className="fas fa-pencil-alt"></i>
                 </button>
                 <button

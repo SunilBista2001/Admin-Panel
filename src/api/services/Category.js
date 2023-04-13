@@ -14,3 +14,8 @@ export const deleteCategory = async ({ id }) => {
   const response = await AxiosService.delete(`/category/delete/${id}`, id);
   return response.data;
 };
+
+export const uploadImage = async (data) => {
+  const response = await AxiosService.post(`/upload/${data}`, data);
+  return response.data;
+};

@@ -59,20 +59,20 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "/",
-  //   element: <AuthLayout />,
-  //   children: [
-  //     {
-  //       path: "/login",
-  //       element: <Login />,
-  //     },
-  //     {
-  //       path: "*",
-  //       element: <h1>Error Page</h1>,
-  //     },
-  //   ],
-  // },
+  {
+    path: "/",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "*",
+        element: <h1>Error Page</h1>,
+      },
+    ],
+  },
 ]);
 
 export default router;

@@ -3,18 +3,19 @@ import Modal from "../../components/Modal/Modal";
 import AddPhoto from "../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import { addCategory } from "../../api/services/Category";
+import { addCategory, uploadImage } from "../../api/services/Category";
+import axios from "axios";
 
 function AddCategoriesModal({ closeModal }) {
   const { register, handleSubmit } = useForm();
-  const addImage = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const addImage = useRef(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const image = URL.createObjectURL(file);
     setSelectedFile(image);
-    console.log(selectedFile);
+    // console.log(selectedFile);
   };
 
   const { mutate, isLoading } = useMutation(addCategory, {
@@ -22,13 +23,23 @@ function AddCategoriesModal({ closeModal }) {
     onError: () => {},
   });
 
-  const onSubmit = (data) => {
-    const newData = {
-      data,
-      image: selectedFile,
-    };
-    console.log(newData); //Data with Image
-    mutate(newData);
+  const onSubmit = async (data) => {
+    let status = 1;
+    let order = 1;
+    // const imageUrl = await uploadImage(selectedFile);
+    const formData = new FormData();
+    // Update the formData object
+    formData.append("myfile", selectedFile);
+    var res = await axios.post("http://140.238.204.76:3000/upload", formData);
+    console.log(res);
+    // const newData = {
+    //   data: { ...data },
+    //   order,
+    //   status,
+    //   photo: imageUrl,
+    // };
+    // console.log(newData); //Data with Image
+    // mutate(newData);
     closeModal();
   };
 
@@ -55,7 +66,7 @@ function AddCategoriesModal({ closeModal }) {
               placeholder="Enter the Description"
               cols="30"
               className="form-control"
-              rows="5"
+              rows="2"
               {...register("description", {
                 required: true,
               })}

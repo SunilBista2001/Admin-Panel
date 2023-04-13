@@ -1,35 +1,32 @@
 import React, { useState } from "react";
-import ProductImage from "../../../assets/img/newmew.jpg";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
+import { set } from "react-hook-form";
 
 let dummyData = [
   {
     id: 0,
-    title: "new mew",
+    title: "Privacy Policy",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde modi commodi nemo reiciendis assumenda ratione, culpa neque dolores accusamus, in sint consectetur magni?",
-    order: 1,
-    photo: ProductImage,
+    slug: "privacy-policy",
   },
 ];
 
-function Table() {
-  const [productData, setProductData] = useState(dummyData);
+function PageTableList() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [categoryId, setCategoryId] = useState(null);
+  const [pageId, setPageId] = useState(null);
 
-  const deleteCategory = (id) => {
+  const deletePage = (id) => {
     setShowDeleteModal(true);
-    setCategoryId(id);
-    console.log("category id=>", id);
+    setPageId(id);
   };
 
   return (
     <div className="card-body">
       {showDeleteModal && (
         <DeleteModal
-          title="Category"
-          id={categoryId}
+          title="Page"
+          id={pageId}
           closeModal={() => setShowDeleteModal(false)}
         />
       )}
@@ -37,34 +34,26 @@ function Table() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Product Name</th>
-            <th>Product Image</th>
+            <th>Page Name</th>
             <th>Description</th>
-            <th>Order</th>
+            <th>Slug</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {productData.map((product, index) => (
+          {dummyData.map((page, index) => (
             <tr key={index}>
-              <td>{product.id + 1}</td>
-              <td>{product.title}</td>
-              <td>
-                <img
-                  src={product.photo}
-                  alt=""
-                  className="w-8 h-8 ml-8 rounded-full object-cover"
-                />
-              </td>
-              <td>{product.description.slice(0, 25) + "..."}</td>
-              <td>{product.order}</td>
+              <td>{page.id + 1}</td>
+              <td>{page.title}</td>
+              <td>{page.description.slice(0, 25) + "..."}</td>
+              <td>{page.slug}</td>
               <td className="actions-hover actions-fade">
                 <button>
                   <i className="fas fa-pencil-alt"></i>
                 </button>
                 <button
                   className="ml-3 delete-row"
-                  onClick={() => deleteCategory(product.id)}
+                  onClick={() => deletePage(page.id)}
                 >
                   <i className="far fa-trash-alt"></i>
                 </button>
@@ -77,4 +66,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default PageTableList;
