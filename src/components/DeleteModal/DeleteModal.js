@@ -1,6 +1,17 @@
 import React from "react";
+import { useMutation } from "react-query";
+import { deleteCategory } from "../../api/services/Category";
 
 function DeleteModal({ id, title, closeModal }) {
+  const { mutate } = useMutation(deleteCategory, {
+    onSuccess: () => {},
+  });
+
+  const handleDelete = () => {
+    mutate(id);
+    closeModal();
+  };
+
   return (
     <div className="w-full fixed inset-0 bg-opacity-75 bg-gray-300 z-10 flex items-center justify-center ">
       <section className="card w-1/2 ml-64">
@@ -21,7 +32,10 @@ function DeleteModal({ id, title, closeModal }) {
         <footer className="card-footer">
           <div className="row">
             <div className="col-md-12 text-end">
-              <button className="btn btn-primary modal-confirm mr-3">
+              <button
+                className="btn btn-primary modal-confirm mr-3"
+                onClick={handleDelete}
+              >
                 Confirm
               </button>
               <button

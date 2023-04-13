@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProductImage from "../../../assets/img/newmew.jpg";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
+import EditCategoryModal from "../EditCategoryModal/EditCategoryModal";
 
-let dummyData = [
-  {
-    id: 0,
-    title: "new mew",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde modi commodi nemo reiciendis assumenda ratione, culpa neque dolores accusamus, in sint consectetur magni?",
-    order: 1,
-    photo: ProductImage,
-  },
-];
-
-function Table() {
-  const [productData, setProductData] = useState(dummyData);
+function Table({ data }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [categoryId, setCategoryId] = useState(null);
+  const [editCategory, setEditCategory] = useState({});
 
   const deleteCategory = (id) => {
     setShowDeleteModal(true);
     setCategoryId(id);
-    console.log("category id=>", id);
+  };
+
+  const editCategories = (data) => {
+    setEditCategory(data);
+    setShowEditModal(true);
   };
 
   return (
@@ -33,6 +28,14 @@ function Table() {
           closeModal={() => setShowDeleteModal(false)}
         />
       )}
+
+      {showEditModal && (
+        <EditCategoryModal
+          category={editCategory}
+          closeModal={() => setShowEditModal(false)}
+        />
+      )}
+
       <table className="table table-responsive-md table-hover mb-0">
         <thead>
           <tr>
@@ -45,9 +48,9 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {productData.map((product, index) => (
+          {data?.data?.map((product, index) => (
             <tr key={index}>
-              <td>{product.id + 1}</td>
+              <td>{product.id}</td>
               <td>{product.title}</td>
               <td>
                 <img
@@ -59,7 +62,7 @@ function Table() {
               <td>{product.description.slice(0, 25) + "..."}</td>
               <td>{product.order}</td>
               <td className="actions-hover actions-fade">
-                <button>
+                <button onClick={() => editCategories(product)}>
                   <i className="fas fa-pencil-alt"></i>
                 </button>
                 <button

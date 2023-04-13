@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
-import { set } from "react-hook-form";
+import EditPageModal from "../EditPageModal/EditPageModal";
 
 let dummyData = [
   {
@@ -12,13 +12,20 @@ let dummyData = [
   },
 ];
 
-function PageTableList() {
+function PageTableList({ pageData }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [pageId, setPageId] = useState(null);
+  const [editPage, setEditPage] = useState(null);
 
   const deletePage = (id) => {
     setShowDeleteModal(true);
     setPageId(id);
+  };
+
+  const editPages = (data) => {
+    setEditPage(data);
+    setShowEditModal(true);
   };
 
   return (
@@ -30,6 +37,14 @@ function PageTableList() {
           closeModal={() => setShowDeleteModal(false)}
         />
       )}
+
+      {showEditModal && (
+        <EditPageModal
+          page={editPage}
+          closeModal={() => setShowEditModal(false)}
+        />
+      )}
+
       <table className="table table-responsive-md table-hover mb-0">
         <thead>
           <tr>
@@ -41,14 +56,14 @@ function PageTableList() {
           </tr>
         </thead>
         <tbody>
-          {dummyData.map((page, index) => (
+          {pageData?.data?.map((page, index) => (
             <tr key={index}>
               <td>{page.id + 1}</td>
               <td>{page.title}</td>
               <td>{page.description.slice(0, 25) + "..."}</td>
               <td>{page.slug}</td>
               <td className="actions-hover actions-fade">
-                <button>
+                <button onClick={() => editPages(page)}>
                   <i className="fas fa-pencil-alt"></i>
                 </button>
                 <button

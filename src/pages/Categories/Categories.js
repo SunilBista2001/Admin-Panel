@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import AddCategoriesModal from "./AddCategoriesModal";
 import CategoriesTable from "./categoriesTable/CategoriesTable";
+import { getCategory } from "../../api/services/Category";
+import { useQuery } from "react-query";
+import Loader from "../../components/Loader/Loader";
 
 function Categories() {
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
+  const { isLoading, data } = useQuery("fetch-category", getCategory);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="container mx-auto my-4">
       {showAddCategoryModal && (
@@ -15,8 +24,9 @@ function Categories() {
           <Button title="Add Categories" />
         </button>
       </div>
+
       <div className="my-4">
-        <CategoriesTable />
+        <CategoriesTable data={data} />
       </div>
     </div>
   );

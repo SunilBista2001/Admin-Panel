@@ -2,18 +2,35 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { getUserSettings } from "../../api/services/Settings";
 import Loader from "../../components/Loader/Loader";
+import { useEffect } from "react";
 
 function Settings() {
-  // const { isLoading, data: user } = useQuery("user-setting", getUserSettings);
-  const { register, handleSubmit } = useForm();
+  const { isLoading, data } = useQuery("user-setting", getUserSettings);
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      company_name: data?.data[0]?.company_name,
+      email: data?.data[0]?.email,
+      address: data?.data[0]?.address,
+      phone: data?.data[0]?.phone,
+      mobile: data?.data[0]?.mobile,
+      company_logo: data?.data[0]?.company_logo,
+      company_favicon: data?.data[0]?.favicon,
+      instagram: data?.data[0]?.instagram,
+      tiktok: data?.data[0]?.tiktok,
+      facebook: data?.data[0]?.facebook,
+      twitter: data?.data[0]?.twitter,
+      linked_in: data?.data[0]?.linkedin,
+      skype: data?.data[0]?.skype,
+    },
+  });
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="w-full h-full">
@@ -36,7 +53,16 @@ function Settings() {
             type="text"
             className="form-control mt-0"
             placeholder="Enter the Company Email"
-            {...register("company_email")}
+            {...register("email")}
+          />
+        </div>
+        <div class="form-group w-[40%]">
+          <label for="title">Address</label>
+          <input
+            type="text"
+            className="form-control mt-0"
+            placeholder="Enter the Address"
+            {...register("address")}
           />
         </div>
         <div class="form-group w-[40%]">
@@ -46,7 +72,7 @@ function Settings() {
             className="form-control mt-0"
             name="phone"
             placeholder="+977 XXXXXXXXX"
-            {...register("company_phone")}
+            {...register("phone")}
           />
         </div>
         <div class="form-group w-[40%]">

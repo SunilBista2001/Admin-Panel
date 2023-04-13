@@ -1,12 +1,25 @@
 import React from "react";
 import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { addQuestion } from "../../api/services/Question";
 
 function AddQuestionModal({ closeModal }) {
   const { register, handleSubmit } = useForm();
 
+  const { mutate } = useMutation(addQuestion, {
+    onSuccess: () => {},
+  });
+
   const onsubmit = (data) => {
+    let year = new Date().getFullYear();
     console.log(data);
+    const newData = {
+      ...data,
+      date: year,
+      reward_points: parseInt(data.reward_points),
+    };
+    mutate(newData);
     closeModal();
   };
 
@@ -49,15 +62,7 @@ function AddQuestionModal({ closeModal }) {
             type="number"
             className="form-control"
             placeholder="Enter the Reward Points"
-            {...register("rewards_points", {})}
-          />
-        </div>
-        <div class="form-group">
-          <label for="title">Date</label>
-          <input
-            type="date"
-            className="form-control"
-            {...register("date", { required: true })}
+            {...register("reward_points", {})}
           />
         </div>
         <footer className="card-footer mt-4">

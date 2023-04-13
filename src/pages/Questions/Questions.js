@@ -2,9 +2,18 @@ import { useState } from "react";
 import AddQuestionModal from "./AddQuestionModal";
 import Button from "../../components/Button/Button";
 import QuestionList from "../../components/QuestionList/QuestionList";
+import { useQuery } from "react-query";
+import { getQuestion } from "../../api/services/Question";
+import Loader from "../../components/Loader/Loader";
 
 function Questions() {
   const [showAddQuestionModal, setShowQuestionModal] = useState(false);
+
+  const { data, isLoading } = useQuery("fetch-question", getQuestion);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="container mx-auto my-4">
@@ -18,7 +27,7 @@ function Questions() {
         </button>
       </div>
 
-      <QuestionList />
+      <QuestionList questions={data} />
     </div>
   );
 }

@@ -1,28 +1,22 @@
 import React from "react";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import { addPage } from "../../api/services/Page";
 
-function AddPagesModal({ closeModal }) {
-  //
-  const { register, handleSubmit } = useForm();
-
-  const { mutate } = useMutation(addPage, {
-    onSuccess: () => {},
+function EditPageModal({ closeModal, page }) {
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      title: page.title,
+      description: page.description,
+      slug: page.slug,
+    },
   });
 
   const onSubmit = (data) => {
-    let status = 1;
-    let order = 1;
-    const newData = { ...data, status, order };
-    // console.log(data);
-    mutate(newData);
-    closeModal();
+    console.log(data);
   };
 
   return (
-    <Modal title="Add Pages">
+    <Modal title="Edit Page">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Input Fields */}
         <div class="form-group">
@@ -64,7 +58,7 @@ function AddPagesModal({ closeModal }) {
           <div className="row">
             <div className="flex justify-end gap-3">
               <button className="btn btn-primary modal-confirm" type="submit">
-                Submit
+                Update
               </button>
               <button
                 className="btn btn-default modal-dismiss"
@@ -80,4 +74,4 @@ function AddPagesModal({ closeModal }) {
   );
 }
 
-export default AddPagesModal;
+export default EditPageModal;

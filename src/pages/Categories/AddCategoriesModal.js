@@ -4,7 +4,6 @@ import AddPhoto from "../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { addCategory, uploadImage } from "../../api/services/Category";
-import axios from "axios";
 
 function AddCategoriesModal({ closeModal }) {
   const { register, handleSubmit } = useForm();
@@ -13,8 +12,8 @@ function AddCategoriesModal({ closeModal }) {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    const image = URL.createObjectURL(file);
-    setSelectedFile(image);
+    // const image = URL.createObjectURL(file);
+    setSelectedFile(file);
     // console.log(selectedFile);
   };
 
@@ -26,20 +25,16 @@ function AddCategoriesModal({ closeModal }) {
   const onSubmit = async (data) => {
     let status = 1;
     let order = 1;
-    // const imageUrl = await uploadImage(selectedFile);
-    const formData = new FormData();
-    // Update the formData object
-    formData.append("myfile", selectedFile);
-    var res = await axios.post("http://140.238.204.76:3000/upload", formData);
-    console.log(res);
-    // const newData = {
-    //   data: { ...data },
-    //   order,
-    //   status,
-    //   photo: imageUrl,
-    // };
-    // console.log(newData); //Data with Image
-    // mutate(newData);
+    const imageUrl = await uploadImage(selectedFile);
+
+    const newData = {
+      ...data,
+      order,
+      status,
+      photo: imageUrl,
+    };
+    console.log(newData); //Data with Image
+    mutate(newData);
     closeModal();
   };
 

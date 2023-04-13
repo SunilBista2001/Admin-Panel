@@ -1,4 +1,4 @@
-Prakash Dai, [2023-04-13 12:52 PM]
+// Prakash Dai, [2023-04-13 12:52 PM]
 import React, { Component } from "react";
 import axios from "axios";
 import { Navigate, Redirect } from "react-router-dom";
@@ -126,8 +126,8 @@ export default class Register extends Component {
       // Update the formData object
       formData.append("myfile", this.state.selected_docimage);
 
-Prakash Dai, [2023-04-13 12:52 PM]
-var res = await axios.post("http://140.238.204.76:3001/upload", formData);
+      // Prakash Dai, [2023-04-13 12:52 PM]
+      var res = await axios.post("http://140.238.204.76:3001/upload", formData);
       const formData2 = new FormData();
       // Update the formData object
       formData2.append("myfile", this.state.selected_profileimage);
@@ -241,16 +241,14 @@ var res = await axios.post("http://140.238.204.76:3001/upload", formData);
                       id="training_type"
                       onChange={this.traning_type_handler}
                     >
-
-Prakash Dai, [2023-04-13 12:52 PM]
-<option value="1">Welding</option>
+                      Prakash Dai, [2023-04-13 12:52 PM]
+                      <option value="1">Welding</option>
                       <option value="2">Care Giving ID</option>
                       <option value="3">Painting</option>
                       <option value="4">Tourism</option>
                     </select>
                   </div>
                 </div>
-
                 <div class="wrap-input100 validate-input">
                   <input
                     class="input100"
@@ -285,7 +283,6 @@ Prakash Dai, [2023-04-13 12:52 PM]
                     </span>
                   )}
                 </div>
-
                 <div class="wrap-input100 validate-input">
                   <input
                     class="input100"
@@ -338,9 +335,8 @@ Prakash Dai, [2023-04-13 12:52 PM]
                     </span>
                   )}
                 </div>
-
-Prakash Dai, [2023-04-13 12:52 PM]
-<div class="wrap-input100 validate-input">
+                Prakash Dai, [2023-04-13 12:52 PM]
+                <div class="wrap-input100 validate-input">
                   <input
                     class="input100"
                     type="text"

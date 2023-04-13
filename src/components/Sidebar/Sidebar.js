@@ -15,6 +15,11 @@ import { Link } from "react-router-dom";
 function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(false);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user-info");
+  };
+
   return (
     <div
       className={showSidebar ? "inner-wrapper w-[15%]" : "inner-wrapper w-0"}
@@ -77,7 +82,7 @@ function Sidebar() {
                 <Link to="/settings">
                   <SidebarTitle Icon={SettingsIcon} title="Settings" />
                 </Link>
-                <Link to="/login">
+                <Link to="/login" onClick={handleLogout}>
                   <SidebarTitle Icon={LogoutIcon} title="Log Out" />
                 </Link>
               </div>

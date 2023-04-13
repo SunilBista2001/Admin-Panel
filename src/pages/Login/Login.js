@@ -3,10 +3,13 @@ import { useMutation } from "react-query";
 import { login } from "../../api/services/User";
 import Logo from "../../assets/company-image/khursani-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/UserSlice";
 
 function Login() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getYear = new Date().getFullYear();
 
@@ -14,8 +17,7 @@ function Login() {
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user-Info", JSON.stringify(data.userinfo));
-
-      console.log(data.userinfo);
+      dispatch(setUser(data.userInfo));
       navigate("/");
     },
     onError: () => {},
