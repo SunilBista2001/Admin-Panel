@@ -6,6 +6,6 @@ export const getUserSettings = async () => {
 };
 
 export const updateUserSettings = async (data) => {
-  const response = await AxiosService.put("/setting/update");
+  const response = await AxiosService.put("/setting/update", data);
   return response.data;
 };

@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 
 function Categories() {
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
-  const { isLoading, data } = useQuery("fetch-category", getCategory);
+  const { isLoading, data, refetch } = useQuery("fetch-category", getCategory);
 
   if (isLoading) {
     return <Loader />;

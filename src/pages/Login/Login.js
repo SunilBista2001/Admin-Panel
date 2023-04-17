@@ -5,6 +5,7 @@ import Logo from "../../assets/company-image/khursani-logo.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/UserSlice";
+import { toast } from "react-toastify";
 
 function Login() {
   const { register, handleSubmit } = useForm();
@@ -15,9 +16,9 @@ function Login() {
 
   const { mutate } = useMutation(login, {
     onSuccess: (data) => {
+      toast.success("Logged In", { theme: "colored" });
       localStorage.setItem("token", data.token);
       localStorage.setItem("user-Info", JSON.stringify(data.userinfo));
-      dispatch(setUser(data.userInfo));
       navigate("/");
     },
     onError: () => {},
@@ -68,9 +69,9 @@ function Login() {
               <div className="form-group mb-3">
                 <div className="clearfix">
                   <label className="float-left">Password</label>
-                  <a href="pages-recover-password.html" className="float-end">
+                  {/* <a href="pages-recover-password.html" className="float-end">
                     Lost Password?
-                  </a>
+                  </a> */}
                 </div>
                 <div className="input-group">
                   <input

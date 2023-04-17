@@ -4,6 +4,7 @@ import AddPhoto from "../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { addCategory, uploadImage } from "../../api/services/Category";
+import { toast } from "react-toastify";
 
 function AddCategoriesModal({ closeModal }) {
   const { register, handleSubmit } = useForm();
@@ -18,8 +19,12 @@ function AddCategoriesModal({ closeModal }) {
   };
 
   const { mutate, isLoading } = useMutation(addCategory, {
-    onSuccess: () => {},
-    onError: () => {},
+    onSuccess: () => {
+      toast.success("Added Category", { theme: "colored" });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
   });
 
   const onSubmit = async (data) => {

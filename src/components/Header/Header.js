@@ -1,11 +1,17 @@
-import Logo from "../../img/logo.png";
 import ProfilePic from "../../img/user-pic.jpg";
+import Logo from "../../img/logo.png";
+import { Link } from "react-router-dom";
 
-function index() {
+function Header() {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user-info");
+  };
+
   return (
     <header className="header border-t-0">
       <div className="logo-container">
-        <a href="../4.0.0" className="logo">
+        <a href="" className="logo">
           <img src={Logo} width="75" height="35" alt="Porto Admin" />
         </a>
       </div>
@@ -206,9 +212,14 @@ function index() {
                 </a>
               </li>
               <li>
-                <a role="menuitem" tabindex="-1" href="pages-signin.html">
+                <Link
+                  to="/login"
+                  role="menuitem"
+                  tabindex="-1"
+                  onClick={handleLogout}
+                >
                   <i className="bx bx-power-off"></i> Logout
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -218,4 +229,4 @@ function index() {
   );
 }
 
-export default index;
+export default Header;

@@ -20,6 +20,7 @@ function PageTableList({ pageData }) {
 
   const deletePage = (id) => {
     setShowDeleteModal(true);
+    console.log("page id >", id);
     setPageId(id);
   };
 

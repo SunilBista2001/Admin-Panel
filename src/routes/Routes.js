@@ -11,6 +11,7 @@ import WalletTransaction from "../pages/WalletTransaction/WalletTransaction";
 import RewardTransaction from "../pages/RewardTransaction/RewardTransaction";
 import Wallet from "../pages/Wallet/Wallet";
 import Users from "../pages/Users/Users";
+import PaymentOption from "../pages/Payment/PaymentOption";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/wallet",
         element: <Wallet />,
+      },
+      {
+        path: "/payment",
+        element: <PaymentOption />,
       },
       {
         path: "/wallet-transaction",

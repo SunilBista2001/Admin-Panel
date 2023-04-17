@@ -1,11 +1,15 @@
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
-import { getUserSettings } from "../../api/services/Settings";
+import { useMutation, useQuery } from "react-query";
+import {
+  getUserSettings,
+  updateUserSettings,
+} from "../../api/services/Settings";
 import Loader from "../../components/Loader/Loader";
-import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Settings() {
   const { isLoading, data } = useQuery("user-setting", getUserSettings);
+
   const { register, handleSubmit } = useForm({
     defaultValues: {
       company_name: data?.data[0]?.company_name,
@@ -14,17 +18,24 @@ function Settings() {
       phone: data?.data[0]?.phone,
       mobile: data?.data[0]?.mobile,
       company_logo: data?.data[0]?.company_logo,
-      company_favicon: data?.data[0]?.favicon,
+      favicon: data?.data[0]?.favicon,
       instagram: data?.data[0]?.instagram,
       tiktok: data?.data[0]?.tiktok,
       facebook: data?.data[0]?.facebook,
       twitter: data?.data[0]?.twitter,
-      linked_in: data?.data[0]?.linkedin,
+      linkedin: data?.data[0]?.linkedin,
       skype: data?.data[0]?.skype,
     },
   });
 
+  const { mutate } = useMutation(updateUserSettings, {
+    onSuccess: () => {
+      toast.success("Updated Succesfully", { theme: "colored" });
+    },
+  });
+
   const onSubmit = (data) => {
+    mutate(data);
     console.log(data);
   };
 
@@ -88,7 +99,7 @@ function Settings() {
           <input
             type="file"
             className="form-control mt-0"
-            {...register("company_favicon")}
+            {...register("favicon")}
           />
         </div>
         <div class="form-group w-[40%]">
@@ -128,7 +139,7 @@ function Settings() {
           <input
             type="url"
             className="form-control mt-0"
-            {...register("linked_in")}
+            {...register("linkedin")}
           />
         </div>
         <div class="form-group w-[40%]">

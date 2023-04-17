@@ -18,6 +18,11 @@ function UserTable() {
 
   const [userId, setUserId] = useState(null);
 
+  const deleteUser = (id) => {
+    setUserId(id);
+    setShowDeleteModal(true);
+  };
+
   return (
     <div className="card-body">
       {showDeleteModal && (
@@ -61,7 +66,7 @@ function UserTable() {
                 </button>
                 <button
                   className="ml-3 delete-row"
-                  onClick={() => setShowDeleteModal(true)}
+                  onClick={() => deleteUser(user.id)}
                 >
                   <i className="far fa-trash-alt"></i>
                 </button>

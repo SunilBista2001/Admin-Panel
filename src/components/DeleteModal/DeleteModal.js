@@ -1,14 +1,17 @@
 import React from "react";
 import { useMutation } from "react-query";
 import { deleteCategory } from "../../api/services/Category";
+import { toast } from "react-toastify";
 
 function DeleteModal({ id, title, closeModal }) {
   const { mutate } = useMutation(deleteCategory, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      toast.success("Deleted Successfully", { theme: "colored" });
+    },
   });
 
   const handleDelete = () => {
-    mutate(id);
+    mutate({ id: id });
     closeModal();
   };
 

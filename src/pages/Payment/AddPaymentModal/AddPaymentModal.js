@@ -1,69 +1,43 @@
-import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../../../components/Modal/Modal";
 import AddPhoto from "../../../assets/img/open-camera.png";
-import { updateCategory, uploadImage } from "../../../api/services/Category";
 import { useMutation } from "react-query";
+import { addPaymentOption } from "../../../api/services/Payment";
 import { toast } from "react-toastify";
+import { useRef, useState } from "react";
+import { uploadImage } from "../../../api/services/Category";
 
-function EditCategoryModal({ closeModal, category }) {
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      title: category.title,
-      description: category.description,
-    },
-  });
+function AddPaymentModal({ closeModal }) {
+  const { register, handleSubmit } = useForm();
+
   const [selectedFile, setSelectedFile] = useState(null);
   const addImage = useRef(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    // const image = URL.createObjectURL(file);
     setSelectedFile(file);
+    // console.log(selectedFile);
   };
 
-  const { mutate } = useMutation(updateCategory, {
+  const { mutate } = useMutation(addPaymentOption, {
     onSuccess: () => {
-      toast.success("Updated Category", { theme: "colored" });
+      toast.success("Added Payment Option Successfully", { theme: "colored" });
     },
   });
 
-  const onSubmit = async (data) => {
+  const onsubmit = async (data) => {
     const imageUrl = await uploadImage(selectedFile);
-    let status = 1;
     let order = 1;
-
-    mutate({ ...data, status, order, imageUrl, id: category.id });
+    let status = 1;
+    console.log(data);
+    mutate({ ...data, order, status });
     closeModal();
   };
 
   return (
-    <Modal title="Edit Categories">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            id="title"
-            placeholder="Enter the Title"
-            {...register("title", {
-              required: true,
-            })}
-          />
-        </div>
-        <div class="form-group">
-          <label for="title">Description</label>
-          <textarea
-            name="description"
-            placeholder="Enter the Description"
-            cols="30"
-            className="form-control"
-            rows="2"
-            {...register("description", {
-              required: true,
-            })}
-          ></textarea>
-        </div>
+    <Modal title="Add Payment Method">
+      <form onSubmit={handleSubmit(onsubmit)}>
         <div class="form-group flex justify-center w-full gap-3 items-center flex-col">
           {!selectedFile ? (
             <img src={AddPhoto} alt="" className="w-40 object-contain" />
@@ -89,11 +63,23 @@ function EditCategoryModal({ closeModal, category }) {
             onChange={handleFileChange}
           />
         </div>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="title"
+            placeholder="Enter the Title of Payment Option"
+            {...register("title", {
+              required: true,
+            })}
+          />
+        </div>
         <footer className="card-footer mt-4">
           <div className="row">
             <div className="flex justify-end gap-3">
               <button className="btn btn-primary modal-confirm" type="submit">
-                Update
+                Submit
               </button>
               <button
                 className="btn btn-default modal-dismiss"
@@ -109,4 +95,4 @@ function EditCategoryModal({ closeModal, category }) {
   );
 }
 
-export default EditCategoryModal;
+export default AddPaymentModal;

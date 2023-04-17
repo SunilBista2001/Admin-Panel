@@ -10,6 +10,7 @@ import StarsIcon from "@mui/icons-material/Stars";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SidebarTitle from "./SidebarTitle";
+import PaymentIcon from "@mui/icons-material/Payment";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
@@ -61,6 +62,9 @@ function Sidebar() {
               </Link>
               <Link to="/questions">
                 <SidebarTitle Icon={QuestionMarkIcon} title="Questions" />
+              </Link>
+              <Link to="/payment">
+                <SidebarTitle Icon={PaymentIcon} title="Payment Method" />
               </Link>
               <Link to="/wallet-transaction">
                 <SidebarTitle

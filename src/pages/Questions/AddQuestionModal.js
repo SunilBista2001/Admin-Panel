@@ -1,14 +1,16 @@
-import React from "react";
 import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { addQuestion } from "../../api/services/Question";
+import SuccessNotification from "../../components/Notification/SuccessNotification";
 
 function AddQuestionModal({ closeModal }) {
   const { register, handleSubmit } = useForm();
 
   const { mutate } = useMutation(addQuestion, {
-    onSuccess: () => {},
+    onSuccess: (data) => {
+      <SuccessNotification message={data.response.message} />;
+    },
   });
 
   const onsubmit = (data) => {
@@ -24,7 +26,7 @@ function AddQuestionModal({ closeModal }) {
   };
 
   return (
-    <Modal title="Add Questions" closeModal={closeModal}>
+    <Modal title="Add Questions">
       <form onSubmit={handleSubmit(onsubmit)}>
         <div class="form-group">
           <label for="title">Title</label>

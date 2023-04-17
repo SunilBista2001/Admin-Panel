@@ -1,6 +1,9 @@
 import React from "react";
 import Modal from "../../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { updatePage } from "../../../api/services/Page";
+import { toast } from "react-toastify";
 
 function EditPageModal({ closeModal, page }) {
   const { register, handleSubmit } = useForm({
@@ -11,8 +14,17 @@ function EditPageModal({ closeModal, page }) {
     },
   });
 
+  const { mutate } = useMutation(updatePage, {
+    onSuccess: () => {
+      toast.success("Edited Page Successfully", { theme: "colored" });
+    },
+  });
+
   const onSubmit = (data) => {
-    console.log(data);
+    let status = 1;
+    let order = 1;
+    mutate({ ...data, order, status, id: page.id });
+    closeModal();
   };
 
   return (

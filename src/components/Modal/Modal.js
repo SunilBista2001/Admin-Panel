@@ -1,6 +1,6 @@
 import React from "react";
 
-function Modal({ title, children, closeModal }) {
+function Modal({ title, children }) {
   return (
     <div
       id="modalForm"
