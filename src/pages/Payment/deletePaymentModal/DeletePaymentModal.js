@@ -1,13 +1,15 @@
 import React from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { deletePaymentOption } from "../../../api/services/Payment";
 
-function DeletePaymentModal({ id, title, closeModal }) {
+function DeletePaymentModal({ id, title, closeModal, refetch }) {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(deletePaymentOption, {
     onSuccess: () => {
+      queryClient.invalidateQueries("fetch-payment");
       toast.success("Deleted Successfully", { theme: "colored" });
-      console.log("dElete success");
+      refetch();
     },
   });
 

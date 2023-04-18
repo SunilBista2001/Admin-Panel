@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import DeletePaymentModal from "./deletePaymentModal/DeletePaymentModal";
 
-function PaymentList({ payments, setEditPaymentModal }) {
+function PaymentList({ payments, setEditPaymentModal, refetch }) {
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [paymentId, setPaymentId] = useState(null);
@@ -27,6 +27,7 @@ function PaymentList({ payments, setEditPaymentModal }) {
       {showDeleteModal && (
         <DeletePaymentModal
           title="Payment Option"
+          refetch={refetch}
           id={paymentId}
           closeModal={() => setShowDeleteModal(false)}
         />

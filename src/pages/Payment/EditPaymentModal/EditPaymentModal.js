@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import AddPhoto from "../../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { updatePaymentOption } from "../../../api/services/Payment";
 import { toast } from "react-toastify";
 
-function EditPaymentModal({ closeModal, payment }) {
+function EditPaymentModal({ closeModal, payment, refetch }) {
+  const queryClient = useQueryClient();
+
   const { register, handleSubmit } = useForm({
     defaultValues: {
       title: payment?.title,
@@ -24,7 +26,9 @@ function EditPaymentModal({ closeModal, payment }) {
 
   const { mutate } = useMutation(updatePaymentOption, {
     onSuccess: () => {
+      queryClient.invalidateQueries("fetch-payment");
       toast.success("Updated Successfully", { theme: "colored" });
+      refetch();
     },
   });
 

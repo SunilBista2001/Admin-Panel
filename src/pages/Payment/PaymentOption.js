@@ -13,7 +13,10 @@ function PaymentOption() {
   const [showAddPaymentModal, setShowAddPaymentModal] = useState(false);
   const [editPaymentModal, setEditPaymentModal] = useState(false);
 
-  const { data, isLoading } = useQuery("fetch-payment", getPaymentMethod);
+  const { data, isLoading, refetch } = useQuery(
+    "fetch-payment",
+    getPaymentMethod
+  );
 
   if (isLoading) {
     return <Loader />;
@@ -22,10 +25,14 @@ function PaymentOption() {
   return (
     <div className="container mx-auto my-4">
       {showAddPaymentModal && (
-        <AddPaymentModal closeModal={() => setShowAddPaymentModal(false)} />
+        <AddPaymentModal
+          refetch={refetch}
+          closeModal={() => setShowAddPaymentModal(false)}
+        />
       )}
       {editPaymentModal && (
         <EditPaymentModal
+          refetch={refetch}
           closeModal={() => setEditPaymentModal(false)}
           payment={payment}
         />
@@ -37,7 +44,11 @@ function PaymentOption() {
         </button>
       </div>
 
-      <PaymentList payments={data} setEditPaymentModal={setEditPaymentModal} />
+      <PaymentList
+        payments={data}
+        setEditPaymentModal={setEditPaymentModal}
+        refetch={refetch}
+      />
     </div>
   );
 }

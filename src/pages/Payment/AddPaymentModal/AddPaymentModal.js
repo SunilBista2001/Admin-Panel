@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 import Modal from "../../../components/Modal/Modal";
 import AddPhoto from "../../../assets/img/open-camera.png";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addPaymentOption } from "../../../api/services/Payment";
 import { toast } from "react-toastify";
 import { useRef, useState } from "react";
 import { uploadImage } from "../../../api/services/Category";
 
 function AddPaymentModal({ closeModal }) {
-  const { register, handleSubmit } = useForm();
+  const queryClient = useQueryClient();
+  const { register, handleSubmit, refetch } = useForm();
 
   const [selectedFile, setSelectedFile] = useState(null);
   const addImage = useRef(null);
@@ -22,7 +23,9 @@ function AddPaymentModal({ closeModal }) {
 
   const { mutate } = useMutation(addPaymentOption, {
     onSuccess: () => {
+      queryClient.invalidateQueries("fetch-payment");
       toast.success("Added Payment Option Successfully", { theme: "colored" });
+      refetch();
     },
   });
 
