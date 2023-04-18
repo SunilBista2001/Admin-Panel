@@ -1,11 +1,10 @@
 import React from "react";
+import { deleteCategory } from "../../../api/services/Category";
 import { useMutation } from "react-query";
-import { deleteCategory } from "../../api/services/Category";
 import { toast } from "react-toastify";
-import { deletePaymentOption } from "../../api/services/Payment";
 
-function DeleteModal({ id, title, closeModal }) {
-  const { mutate } = useMutation(deletePaymentOption, {
+function DeleteCategoryModal({ closeModal, title, id }) {
+  const { mutate } = useMutation(deleteCategory, {
     onSuccess: () => {
       toast.success("Deleted Successfully", { theme: "colored" });
       console.log("dElete success");
@@ -57,4 +56,4 @@ function DeleteModal({ id, title, closeModal }) {
   );
 }
 
-export default DeleteModal;
+export default DeleteCategoryModal;

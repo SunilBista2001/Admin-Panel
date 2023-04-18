@@ -36,7 +36,6 @@ function Settings() {
 
   const onSubmit = (data) => {
     mutate(data);
-    console.log(data);
   };
 
   if (isLoading) {

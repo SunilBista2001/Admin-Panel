@@ -21,7 +21,9 @@ function Login() {
       localStorage.setItem("user-Info", JSON.stringify(data.userinfo));
       navigate("/");
     },
-    onError: () => {},
+    onError: () => {
+      toast.error("Check your Phone and Password", { theme: "colored" });
+    },
   });
 
   const onSubmit = (data) => {

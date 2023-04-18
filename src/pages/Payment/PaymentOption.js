@@ -10,7 +10,6 @@ import EditPaymentModal from "./EditPaymentModal/EditPaymentModal";
 
 function PaymentOption() {
   const payment = useSelector((state) => state.payment.payment);
-  console.log("payemnt", payment);
   const [showAddPaymentModal, setShowAddPaymentModal] = useState(false);
   const [editPaymentModal, setEditPaymentModal] = useState(false);
 

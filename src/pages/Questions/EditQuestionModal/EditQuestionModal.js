@@ -1,39 +1,38 @@
-import Modal from "../../components/Modal/Modal";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import { addQuestion } from "../../api/services/Question";
+import Modal from "../../../components/Modal/Modal";
+import { updateQuestion } from "../../../api/services/Question";
 import { toast } from "react-toastify";
 
-function AddQuestionModal({ closeModal }) {
-  const { register, handleSubmit } = useForm();
+function EditQuestionModal({ closeModal, question }) {
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      title: question.title,
+      green_option: question.green_option,
+      red_option: question.red_option,
+      reward_points: question.reward_points,
+    },
+  });
 
-  const { mutate } = useMutation(addQuestion, {
-    onSuccess: (data) => {
-      toast.success("Added Question Successfully", { theme: "colored" });
+  const { mutate } = useMutation(updateQuestion, {
+    onSuccess: () => {
+      toast.success("Updated Successfully", { theme: "colored" });
     },
   });
 
   const onsubmit = (data) => {
-    // Getting a date
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
-    if (dd < 10) dd = "0" + dd;
-    if (mm < 10) mm = "0" + mm;
-    const year = dd + "/" + mm + "/" + yyyy;
+    let order = 1;
+    let status = 1;
 
-    const newData = {
-      ...data,
-      date: year,
-      reward_points: parseInt(data.reward_points),
-    };
-    mutate(newData);
+    // Getting a Date
+
+    mutate({ ...data, id: question.id, order, status, date: question.date });
     closeModal();
   };
 
   return (
-    <Modal title="Add Questions">
+    <Modal title="Edit Question">
       <form onSubmit={handleSubmit(onsubmit)}>
         <div class="form-group">
           <label for="title">Title</label>
@@ -94,4 +93,4 @@ function AddQuestionModal({ closeModal }) {
   );
 }
 
-export default AddQuestionModal;
+export default EditQuestionModal;

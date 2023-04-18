@@ -3,20 +3,22 @@ import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { addPage } from "../../api/services/Page";
+import { toast } from "react-toastify";
 
 function AddPagesModal({ closeModal }) {
   //
   const { register, handleSubmit } = useForm();
 
   const { mutate } = useMutation(addPage, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      toast.success("Added Page Successfully", { theme: "colored" });
+    },
   });
 
   const onSubmit = (data) => {
     let status = 1;
     let order = 1;
     const newData = { ...data, status, order };
-    // console.log(data);
     mutate(newData);
     closeModal();
   };

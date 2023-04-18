@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
 import EditPageModal from "../EditPageModal/EditPageModal";
+import DeletePageModal from "../deletePageModal/DeletePageModal";
 
 let dummyData = [
   {
@@ -32,7 +33,7 @@ function PageTableList({ pageData }) {
   return (
     <div className="card-body">
       {showDeleteModal && (
-        <DeleteModal
+        <DeletePageModal
           title="Page"
           id={pageId}
           closeModal={() => setShowDeleteModal(false)}

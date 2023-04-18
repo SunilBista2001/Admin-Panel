@@ -1,14 +1,13 @@
 import React from "react";
 import { useMutation } from "react-query";
-import { deleteCategory } from "../../api/services/Category";
 import { toast } from "react-toastify";
-import { deletePaymentOption } from "../../api/services/Payment";
+import { deleteQuestion } from "../../../api/services/Question";
 
-function DeleteModal({ id, title, closeModal }) {
-  const { mutate } = useMutation(deletePaymentOption, {
+function DeleteQuestionModal({ id, title, closeModal }) {
+  const { mutate } = useMutation(deleteQuestion, {
     onSuccess: () => {
       toast.success("Deleted Successfully", { theme: "colored" });
-      console.log("dElete success");
+      console.log("success deleted");
     },
   });
 
@@ -57,4 +56,4 @@ function DeleteModal({ id, title, closeModal }) {
   );
 }
 
-export default DeleteModal;
+export default DeleteQuestionModal;

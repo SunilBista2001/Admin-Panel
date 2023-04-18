@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProductImage from "../../../assets/img/newmew.jpg";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
 import EditCategoryModal from "../EditCategoryModal/EditCategoryModal";
+import DeleteCategoryModal from "../deleteCategory/DeleteCategoryModal";
 
 function Table({ data }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -22,7 +23,7 @@ function Table({ data }) {
   return (
     <div className="card-body">
       {showDeleteModal && (
-        <DeleteModal
+        <DeleteCategoryModal
           title="Category"
           id={categoryId}
           closeModal={() => setShowDeleteModal(false)}

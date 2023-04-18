@@ -1,10 +1,9 @@
 import React from "react";
 import { useMutation } from "react-query";
-import { deleteCategory } from "../../api/services/Category";
 import { toast } from "react-toastify";
-import { deletePaymentOption } from "../../api/services/Payment";
+import { deletePaymentOption } from "../../../api/services/Payment";
 
-function DeleteModal({ id, title, closeModal }) {
+function DeletePaymentModal({ id, title, closeModal }) {
   const { mutate } = useMutation(deletePaymentOption, {
     onSuccess: () => {
       toast.success("Deleted Successfully", { theme: "colored" });
@@ -57,4 +56,4 @@ function DeleteModal({ id, title, closeModal }) {
   );
 }
 
-export default DeleteModal;
+export default DeletePaymentModal;

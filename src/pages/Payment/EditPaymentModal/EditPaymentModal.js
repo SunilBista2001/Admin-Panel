@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import AddPhoto from "../../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { updatePaymentOption } from "../../../api/services/Payment";
+import { toast } from "react-toastify";
 
 function EditPaymentModal({ closeModal, payment }) {
   const { register, handleSubmit } = useForm({
@@ -19,8 +22,17 @@ function EditPaymentModal({ closeModal, payment }) {
     // console.log(selectedFile);
   };
 
+  const { mutate } = useMutation(updatePaymentOption, {
+    onSuccess: () => {
+      toast.success("Updated Successfully", { theme: "colored" });
+    },
+  });
+
   const onsubmit = (data) => {
-    console.log(data);
+    let order = 1;
+    let status = 1;
+    mutate({ ...data, id: payment.id, order, status });
+    closeModal();
   };
 
   return (
