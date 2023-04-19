@@ -14,7 +14,7 @@ function Questions() {
   const [showAddQuestionModal, setShowQuestionModal] = useState(false);
   const [showEditQuestionModal, setShowEditQuestionModal] = useState(false);
 
-  const { data, isLoading } = useQuery("fetch-question", getQuestion);
+  const { data, isLoading, refetch } = useQuery("fetch-question", getQuestion);
 
   if (isLoading) {
     return <Loader />;
@@ -23,10 +23,14 @@ function Questions() {
   return (
     <div className="container mx-auto my-4">
       {showAddQuestionModal && (
-        <AddQuestionModal closeModal={() => setShowQuestionModal(false)} />
+        <AddQuestionModal
+          closeModal={() => setShowQuestionModal(false)}
+          refetch={refetch}
+        />
       )}
       {showEditQuestionModal && (
         <EditQuestionModal
+          refetch={refetch}
           closeModal={() => setShowEditQuestionModal(false)}
           question={question}
         />
@@ -41,6 +45,7 @@ function Questions() {
       <QuestionList
         questions={data}
         setShowEditQuestionModal={setShowEditQuestionModal}
+        refetch={refetch}
       />
     </div>
   );

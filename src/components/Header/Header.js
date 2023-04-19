@@ -1,6 +1,7 @@
 import ProfilePic from "../../img/user-pic.jpg";
 import Logo from "../../img/logo.png";
 import { Link } from "react-router-dom";
+import NepalFlag from "../../assets/img/nepal-flag.gif";
 
 function Header() {
   const handleLogout = () => {
@@ -186,9 +187,9 @@ function Header() {
           <a href="#" data-bs-toggle="dropdown">
             <figure className="profile-picture">
               <img
-                src={ProfilePic}
+                src={NepalFlag}
                 alt="Joseph Doe"
-                className="rounded-circle"
+                className="rounded-circle object-contain w-6 h-6"
                 data-lock-picture="img/!logged-user.jpg"
               />
             </figure>

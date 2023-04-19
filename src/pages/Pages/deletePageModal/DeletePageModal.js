@@ -1,17 +1,22 @@
 import React from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { deletePage } from "../../../api/services/Page";
 
-function DeletePageModal({ id, title, closeModal }) {
+function DeletePageModal({ id, title, closeModal, refetch }) {
+  //
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(deletePage, {
     onSuccess: () => {
       toast.success("Deleted Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-page");
+      refetch();
     },
   });
 
   const handleDelete = () => {
     mutate({ id: id });
+
     closeModal();
   };
 

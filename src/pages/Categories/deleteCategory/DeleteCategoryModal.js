@@ -1,13 +1,16 @@
 import React from "react";
 import { deleteCategory } from "../../../api/services/Category";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
-function DeleteCategoryModal({ closeModal, title, id }) {
+function DeleteCategoryModal({ closeModal, title, id, refetch }) {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(deleteCategory, {
     onSuccess: () => {
       toast.success("Deleted Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-category");
       console.log("dElete success");
+      refetch();
     },
   });
 

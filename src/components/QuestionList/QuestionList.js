@@ -6,11 +6,12 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import { useState } from "react";
 import DeleteQuestionModal from "../../pages/Questions/DeleteQuestionModal/DeleteQuestionModal";
 
-function QuestionList({ questions, setShowEditQuestionModal }) {
+function QuestionList({ questions, setShowEditQuestionModal, refetch }) {
   //
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [questionId, setQuestionId] = useState(null);
+
   const editQuestion = (data) => {
     dispatch(setQuestion(data));
     setShowEditQuestionModal(true);
@@ -27,6 +28,7 @@ function QuestionList({ questions, setShowEditQuestionModal }) {
         <DeleteQuestionModal
           title="Question"
           id={questionId}
+          refetch={refetch}
           closeModal={() => setShowDeleteModal(false)}
         />
       )}

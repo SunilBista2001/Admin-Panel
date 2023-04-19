@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import Modal from "../../../components/Modal/Modal";
 import { updateQuestion } from "../../../api/services/Question";
 import { toast } from "react-toastify";
 
-function EditQuestionModal({ closeModal, question }) {
+function EditQuestionModal({ closeModal, question, refetch }) {
+  const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       title: question.title,
@@ -18,6 +19,8 @@ function EditQuestionModal({ closeModal, question }) {
   const { mutate } = useMutation(updateQuestion, {
     onSuccess: () => {
       toast.success("Updated Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-question");
+      refetch();
     },
   });
 
@@ -26,8 +29,15 @@ function EditQuestionModal({ closeModal, question }) {
     let status = 1;
 
     // Getting a Date
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    const year = yyyy + "-" + mm + "-" + dd;
 
-    mutate({ ...data, id: question.id, order, status, date: question.date });
+    mutate({ ...data, id: question.id, order, status, date: year });
     closeModal();
   };
 

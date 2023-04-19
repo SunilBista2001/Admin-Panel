@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
   getUserSettings,
   updateUserSettings,
@@ -8,7 +8,12 @@ import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 
 function Settings() {
-  const { isLoading, data } = useQuery("user-setting", getUserSettings);
+  const queryClient = useQueryClient();
+
+  const { isLoading, data, refetch } = useQuery(
+    "user-setting",
+    getUserSettings
+  );
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -31,6 +36,8 @@ function Settings() {
   const { mutate } = useMutation(updateUserSettings, {
     onSuccess: () => {
       toast.success("Updated Succesfully", { theme: "colored" });
+      queryClient.invalidateQueries("user-setting");
+      refetch();
     },
   });
 

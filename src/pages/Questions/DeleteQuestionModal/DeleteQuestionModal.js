@@ -1,12 +1,16 @@
 import React from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { deleteQuestion } from "../../../api/services/Question";
 
-function DeleteQuestionModal({ id, title, closeModal }) {
+function DeleteQuestionModal({ id, title, closeModal, refetch }) {
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation(deleteQuestion, {
     onSuccess: () => {
       toast.success("Deleted Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-question");
+      refetch();
       console.log("success deleted");
     },
   });

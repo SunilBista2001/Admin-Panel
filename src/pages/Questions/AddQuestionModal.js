@@ -1,15 +1,17 @@
 import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addQuestion } from "../../api/services/Question";
 import { toast } from "react-toastify";
 
-function AddQuestionModal({ closeModal }) {
+function AddQuestionModal({ closeModal, refetch }) {
   const { register, handleSubmit } = useForm();
-
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(addQuestion, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Added Question Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-question");
+      refetch();
     },
   });
 
@@ -21,13 +23,14 @@ function AddQuestionModal({ closeModal }) {
     let dd = today.getDate();
     if (dd < 10) dd = "0" + dd;
     if (mm < 10) mm = "0" + mm;
-    const year = dd + "/" + mm + "/" + yyyy;
+    const year = yyyy + "-" + mm + "-" + dd;
 
     const newData = {
       ...data,
       date: year,
       reward_points: parseInt(data.reward_points),
     };
+
     mutate(newData);
     closeModal();
   };

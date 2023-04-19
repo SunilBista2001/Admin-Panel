@@ -1,17 +1,20 @@
 import React from "react";
 import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addPage } from "../../api/services/Page";
 import { toast } from "react-toastify";
 
-function AddPagesModal({ closeModal }) {
+function AddPagesModal({ closeModal, refetch }) {
   //
   const { register, handleSubmit } = useForm();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(addPage, {
     onSuccess: () => {
       toast.success("Added Page Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-page");
+      refetch();
     },
   });
 

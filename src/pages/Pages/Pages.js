@@ -9,7 +9,7 @@ import Loader from "../../components/Loader/Loader";
 function Pages() {
   const [showAddPagesModal, setShowAddPagesModal] = useState(false);
 
-  const { isLoading, data } = useQuery("fetch-page", getPage);
+  const { isLoading, data, refetch } = useQuery("fetch-page", getPage);
 
   if (isLoading) {
     return <Loader />;
@@ -18,7 +18,10 @@ function Pages() {
   return (
     <div className="container mx-auto my-4">
       {showAddPagesModal && (
-        <AddPagesModal closeModal={() => setShowAddPagesModal(false)} />
+        <AddPagesModal
+          closeModal={() => setShowAddPagesModal(false)}
+          refetch={refetch}
+        />
       )}
       <div className="flex w-full justify-end">
         <button onClick={() => setShowAddPagesModal(true)}>
@@ -26,7 +29,7 @@ function Pages() {
         </button>
       </div>
       <div className="my-4">
-        <PageTableList pageData={data} />
+        <PageTableList pageData={data} refetch={refetch} />
       </div>
     </div>
   );

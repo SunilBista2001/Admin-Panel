@@ -17,7 +17,10 @@ function Categories() {
   return (
     <div className="container mx-auto my-4">
       {showAddCategoryModal && (
-        <AddCategoriesModal closeModal={() => setShowAddCategoryModal(false)} />
+        <AddCategoriesModal
+          closeModal={() => setShowAddCategoryModal(false)}
+          refetch={refetch}
+        />
       )}
       <div className="flex w-full justify-end">
         <button onClick={() => setShowAddCategoryModal(true)}>
@@ -26,7 +29,7 @@ function Categories() {
       </div>
 
       <div className="my-4">
-        <CategoriesTable data={data} />
+        <CategoriesTable data={data} refetch={refetch} />
       </div>
     </div>
   );

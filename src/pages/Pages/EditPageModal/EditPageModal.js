@@ -1,11 +1,12 @@
 import React from "react";
 import Modal from "../../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { updatePage } from "../../../api/services/Page";
 import { toast } from "react-toastify";
 
-function EditPageModal({ closeModal, page }) {
+function EditPageModal({ closeModal, page, refetch }) {
+  const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       title: page.title,
@@ -17,6 +18,8 @@ function EditPageModal({ closeModal, page }) {
   const { mutate } = useMutation(updatePage, {
     onSuccess: () => {
       toast.success("Edited Page Successfully", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-page");
+      refetch();
     },
   });
 

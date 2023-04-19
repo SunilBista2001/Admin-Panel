@@ -1,19 +1,8 @@
 import React, { useState } from "react";
-import DeleteModal from "../../../components/DeleteModal/DeleteModal";
 import EditPageModal from "../EditPageModal/EditPageModal";
 import DeletePageModal from "../deletePageModal/DeletePageModal";
 
-let dummyData = [
-  {
-    id: 0,
-    title: "Privacy Policy",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde modi commodi nemo reiciendis assumenda ratione, culpa neque dolores accusamus, in sint consectetur magni?",
-    slug: "privacy-policy",
-  },
-];
-
-function PageTableList({ pageData }) {
+function PageTableList({ pageData, refetch }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [pageId, setPageId] = useState(null);
@@ -21,7 +10,6 @@ function PageTableList({ pageData }) {
 
   const deletePage = (id) => {
     setShowDeleteModal(true);
-    console.log("page id >", id);
     setPageId(id);
   };
 
@@ -36,6 +24,7 @@ function PageTableList({ pageData }) {
         <DeletePageModal
           title="Page"
           id={pageId}
+          refetch={refetch}
           closeModal={() => setShowDeleteModal(false)}
         />
       )}
@@ -43,6 +32,7 @@ function PageTableList({ pageData }) {
       {showEditModal && (
         <EditPageModal
           page={editPage}
+          refetch={refetch}
           closeModal={() => setShowEditModal(false)}
         />
       )}

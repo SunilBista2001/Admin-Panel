@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import AddPhoto from "../../assets/img/open-camera.png";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addCategory, uploadImage } from "../../api/services/Category";
 import { toast } from "react-toastify";
 
-function AddCategoriesModal({ closeModal }) {
+function AddCategoriesModal({ closeModal, refetch }) {
+  const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
   const addImage = useRef(null);
@@ -21,6 +22,8 @@ function AddCategoriesModal({ closeModal }) {
   const { mutate, isLoading } = useMutation(addCategory, {
     onSuccess: () => {
       toast.success("Added Category", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-category");
+      refetch();
     },
     onError: (error) => {
       toast.error(error.response.data.message);

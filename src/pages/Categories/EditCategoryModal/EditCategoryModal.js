@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import Modal from "../../../components/Modal/Modal";
 import AddPhoto from "../../../assets/img/open-camera.png";
 import { updateCategory, uploadImage } from "../../../api/services/Category";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
-function EditCategoryModal({ closeModal, category }) {
+function EditCategoryModal({ closeModal, category, refetch }) {
+  const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       title: category.title,
@@ -24,6 +25,8 @@ function EditCategoryModal({ closeModal, category }) {
   const { mutate } = useMutation(updateCategory, {
     onSuccess: () => {
       toast.success("Updated Category", { theme: "colored" });
+      queryClient.invalidateQueries("fetch-category");
+      refetch();
     },
   });
 

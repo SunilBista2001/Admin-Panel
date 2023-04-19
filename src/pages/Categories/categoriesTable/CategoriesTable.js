@@ -1,10 +1,8 @@
 import { useState } from "react";
-import ProductImage from "../../../assets/img/newmew.jpg";
-import DeleteModal from "../../../components/DeleteModal/DeleteModal";
 import EditCategoryModal from "../EditCategoryModal/EditCategoryModal";
 import DeleteCategoryModal from "../deleteCategory/DeleteCategoryModal";
 
-function Table({ data }) {
+function Table({ data, refetch }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [categoryId, setCategoryId] = useState(null);
@@ -24,6 +22,7 @@ function Table({ data }) {
     <div className="card-body">
       {showDeleteModal && (
         <DeleteCategoryModal
+          refetch={refetch}
           title="Category"
           id={categoryId}
           closeModal={() => setShowDeleteModal(false)}
@@ -32,6 +31,7 @@ function Table({ data }) {
 
       {showEditModal && (
         <EditCategoryModal
+          refetch={refetch}
           category={editCategory}
           closeModal={() => setShowEditModal(false)}
         />

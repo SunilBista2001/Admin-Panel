@@ -1,16 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { login } from "../../api/services/User";
-import Logo from "../../assets/company-image/khursani-logo.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/slices/UserSlice";
 import { toast } from "react-toastify";
 
 function Login() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const getYear = new Date().getFullYear();
 
