@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 function EditPageModal({ closeModal, page, refetch }) {
   const queryClient = useQueryClient();
+
   const { register, handleSubmit } = useForm({
     defaultValues: {
       title: page.title,

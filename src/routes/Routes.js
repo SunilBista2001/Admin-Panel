@@ -12,6 +12,7 @@ import RewardTransaction from "../pages/RewardTransaction/RewardTransaction";
 import Wallet from "../pages/Wallet/Wallet";
 import Users from "../pages/Users/Users";
 import PaymentOption from "../pages/Payment/PaymentOption";
+import Hostel from "../pages/Hostel/Hostel";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/wallet",
         element: <Wallet />,
+      },
+      {
+        path: "/hostel",
+        element: <Hostel />,
       },
       {
         path: "/payment",
