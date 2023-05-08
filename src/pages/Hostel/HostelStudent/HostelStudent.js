@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import EditStudentModal from "./EditStudentModal";
+import DeleteStudentModal from "./DeleteStudentModal";
 
 function HostelStudent({ data }) {
   const [showEditStudentModal, setShowEditStudentModal] = useState(false);
+  const [showDeleteStudentModal, setShowDeleteStudentModal] = useState(false);
   const [studentData, setStudentData] = useState(null);
+  const [studentId, setStudentId] = useState(null);
 
   const editStudent = (data) => {
     setStudentData(data);
     setShowEditStudentModal(true);
+  };
+
+  const deleteStudent = (id) => {
+    setStudentId(id);
+    setShowDeleteStudentModal(true);
   };
 
   return (
@@ -16,6 +24,13 @@ function HostelStudent({ data }) {
         <EditStudentModal
           data={studentData}
           closeModal={() => setShowEditStudentModal(false)}
+        />
+      )}
+      {showDeleteStudentModal && (
+        <DeleteStudentModal
+          id={studentId}
+          title="Student"
+          closeModal={() => setShowDeleteStudentModal(false)}
         />
       )}
       <table className="table table-responsive-md table-hover mb-0">
@@ -45,7 +60,10 @@ function HostelStudent({ data }) {
                 <button onClick={() => editStudent(student)}>
                   <i className="fas fa-pencil-alt"></i>
                 </button>
-                <button className="ml-3 delete-row">
+                <button
+                  className="ml-3 delete-row"
+                  onClick={() => deleteStudent(student.id)}
+                >
                   <i className="far fa-trash-alt"></i>
                 </button>
               </td>

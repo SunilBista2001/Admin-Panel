@@ -4,7 +4,7 @@ function Modal({ title, children }) {
   return (
     <div
       id="modalForm"
-      className="w-full fixed inset-0 bg-opacity-75 bg-gray-300 z-10 flex items-center justify-center "
+      className="w-full fixed ml-20 inset-0 bg-opacity-75 bg-gray-300 z-10 flex items-center justify-center "
     >
       <section className="card w-1/3 ">
         <header className="card-header">

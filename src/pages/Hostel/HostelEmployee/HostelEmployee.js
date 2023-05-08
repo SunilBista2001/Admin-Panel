@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import EditEmployee from "./EditEmployee";
+import DeleteEmployeeModal from "./DeleteEmployeeModal";
 
 function HostelEmployee({ data }) {
   const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false);
+  const [showDeleteEmployeeModal, setShowDeleteEmployeeModal] = useState(false);
   const [editEmployeeData, setEditEmployeeData] = useState(null);
+  const [EmployeeId, setEmployeeId] = useState(null);
 
   const editEmployee = (data) => {
     setShowEditEmployeeModal(true);
     setEditEmployeeData(data);
+  };
+
+  const deleteEmployee = (id) => {
+    setEmployeeId(id);
+    setShowDeleteEmployeeModal(true);
   };
 
   return (
@@ -18,6 +26,14 @@ function HostelEmployee({ data }) {
           closeModal={() => setShowEditEmployeeModal(false)}
         />
       )}
+      {showDeleteEmployeeModal && (
+        <DeleteEmployeeModal
+          title="Employee"
+          closeModal={() => setShowDeleteEmployeeModal(false)}
+          id={EmployeeId}
+        />
+      )}
+
       <table className="table table-responsive-md table-hover mb-0">
         <thead>
           <tr>
@@ -45,7 +61,10 @@ function HostelEmployee({ data }) {
                 <button onClick={() => editEmployee(employee)}>
                   <i className="fas fa-pencil-alt"></i>
                 </button>
-                <button className="ml-3 delete-row">
+                <button
+                  className="ml-3 delete-row"
+                  onClick={() => deleteEmployee(employee.id)}
+                >
                   <i className="far fa-trash-alt"></i>
                 </button>
               </td>
